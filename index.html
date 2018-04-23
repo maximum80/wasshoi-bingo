@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title>Perty Bingo!</title>
+  <title>橋本貴明&みどりのワッショイBingo!</title>
 
   <!-- Bootstrap -->
   <link href="asset/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
@@ -21,23 +21,43 @@
 </head>
 
 <body>
-  <p>
-    <span id="pingo-number">00</span></p>
-    <div id="buttons">
-      <button id="start-button" class="btn btn-lg btn-default">Start</button>
-      <button id="reset-button" class="btn btn-lg btn-default">Reset</button>
-      </div>
-    <h3>Histories</h3>
+  <h1>橋本貴明&みどりのワッショイBingo!</h1>
+  <div class="row">
+  	<div class="col-md-4 image">
+    <img src="asset/hashimoto.jpg" width="500px">
+  	</div>
+  	<div class="col-md-4 counter">
+      <p>
+        <span id="pingo-number">00</span></p>
+        <div id="buttons">
+          <button id="start-button" class="btn btn-lg btn-default">スタート！</button>
+          <button id="reset-button" class="btn btn-lg btn-default">Reset</button>
+        </div>
+        <audio id="drum" preload="auto">
+  	       <source src="asset/nc79078.mp3" type="audio/mp3">
+        </audio>
+        <audio id="wasshoi1" preload="auto">
+  	       <source src="asset/wasshoi1.mp3" type="audio/mp3">
+        </audio>
+    </div>
+    <div class="col-md-4 manual">
+      <form name="form-manual">
+        <select id="target" class="form-control">
+        </select>
+      </form>
+      <button id="manual-button" class="btn btn-lg btn-default">ワッショーイ！</button>
+      <audio id="wasshoi2" preload="auto">
+         <source src="asset/wasshoi2.mp3" type="audio/mp3">
+      </audio>
+    </div>
+    </div>
+    <h3 style="padding-top:20px;">↓既に出た数字↓</h3>
     <div id="histories" class="row histories"></div>
-
-    <audio id="drum" preload="auto">
-	<source src="asset/nc79078.mp3" type="audio/mp3">
-    </audio>
-    
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="asset/jquery-1.11.3.min.js "></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="asset/bootstrap-3.3.5-dist/js/bootstrap.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
     <script src="asset/partybingo.js "></script>
   </body>
 </html>

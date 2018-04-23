@@ -69,6 +69,19 @@ body {
   font-weight: bold;
 }
 
+.image {
+  display: flex;
+  height: 60vh;
+}
+
+.image img{
+  margin: auto;
+}
+.image {
+  display: flex;
+  height: 60vh;
+}
+
 
 /*
  * Affix and center
@@ -108,15 +121,32 @@ body {
  * Party Bingo
  */
 #pingo-number {
-  font-size: 240pt
+  font-size: 200pt
 }
 #start-button {
-  font-size: 60pt;
-  padding: 10px 140px
+  width: 300px;
+  height: 100px;
+  font-size: 30pt;
+  padding: 10px 0px;
 }
 #reset-button {
   font-size: 16pt;
-  padding: 49px 10px
+  padding: 34px 10px;
+}
+
+#manual-select {
+  width: 300px;
+  height: 100px;
+  font-size: 30pt;
+  padding: 10px 0px;
+}
+
+#manual-button {
+  margin-top: 30px;
+  width: 300px;
+  height: 100px;
+  font-size: 30pt;
+  padding: 10px 0px;
 }
 .histories {
   width: 90%
@@ -124,4 +154,19 @@ body {
 .history-number {
   font-size: 40pt;
   margin: 5px 40px
+}
+
+.manual {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  text-align: center;
+}
+
+.form-control {
+  height: 100px;
+  width:300px;
+  font-size: 30pt;
 }

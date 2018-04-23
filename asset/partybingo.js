@@ -2,14 +2,17 @@
 	var pingoNumber = $('#pingo-number');
 	var startButton = $('#start-button');
 	var resetButton = $('#reset-button');
+	var manualButton = $('#manual-button');
 	var historiesDiv = $('#histories')
 	var drumAudio = $('#drum').get(0);
-	
+	var wasshoiAudio1 = $('#wasshoi1').get(0);
+	var wasshoiAudio2 = $('#wasshoi2').get(0);
+
 	// init histories
 	var toBingoString = function(n){
 		if(n > 9) {
 			return n.toString(10);
-		} else if (n < 0) {	
+		} else if (n < 0) {
 			return '00'
 		} else {
 			return '0' +  n.toString(10);
@@ -18,9 +21,9 @@
 	var addHistory = function(n) {
 		historiesDiv.append('<div class="col-md-1"><p class="history-number">' + toBingoString(n) + '</p></div>')
 	};
-	
+
 	// init number list and storage
-	var numberListAll = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75];
+	var numberListAll = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72];
 	var storage = localStorage;
 	var listKey = 'partybingo.numberlist';
 	var removedKey = 'partybingo.removedlist';
@@ -40,7 +43,7 @@
 		setNumberList(numberListAll.concat());
 		setRemovedList([]);
 	};
-	
+
 	// create initial list or loadHistory
 	var loadedNumberList = getNumberList();
 	var loadedRemovedList = getRemovedList();
@@ -50,7 +53,7 @@
 		}
 	} else {
 		resetLists();
-	} 
+	}
 
 	// create util method
 	var getNumberRamdom = function(){
@@ -72,7 +75,23 @@
 		setRemovedList(removedList)
 		return removed;
 	}
-	
+
+	var removeNumber = function(n){
+		var numberList = getNumberList();
+		if(numberList.length === 0) {
+			return -1;
+		}
+		var removed = parseInt(n,10);
+		var removeKey = numberList.indexOf(removed);
+		console.log(removed);
+		console.log(removeKey);
+		numberList.splice(removeKey, 1);
+		setNumberList(numberList);
+		var removedList = getRemovedList();
+		removedList.push(removed);
+		setRemovedList(removedList);
+	}
+
 	// init start button
 	var isStarted = false;
 	function rourletto() {
@@ -80,20 +99,25 @@
 			pingoNumber.text(toBingoString(getNumberRamdom()));
 			setTimeout(rourletto, 60);
 		}
-	} 
+	}
 	var stop = function(time) {
 		isStarted = false;
-		startButton.text('Start');
+		startButton.text('スタート！！');
 		var n = removeNumberRamdom();
 		pingoNumber.text(toBingoString(n));
 		addHistory(n);
+		var numberList = getNumberList();
+		setSelectValue(numberList);
 		drumAudio.pause();
+		wasshoiAudio1.currentTime = 0;
+		wasshoiAudio1.play();
 	};
 	var start = function(){
 		isStarted = true;
-		startButton.text('Stop');
-		drumAudio.currentTime = 0; 
+		startButton.text('ワッショーイ！');
+		drumAudio.currentTime = 0;
 		drumAudio.play();
+		wasshoiAudio1.pause();
 		rourletto();
 	};
 	var startClicked = function(e){
@@ -105,7 +129,7 @@
 	};
 	startButton.click(startClicked); // button
 	startButton.focus();
-	
+
 	// init reset button
 	var resetClicked = function() {
 		if (confirm('Do you really want to reset?')) {
@@ -114,8 +138,38 @@
 			historiesDiv.empty();
 			drumAudio.pause();
 			startButton.focus();
+			var numberList = getNumberList();
+			setSelectValue(numberList);
 		}
 	};
 	resetButton.click(resetClicked);
-	
+
+	var manual = function() {
+		var selected = document.getElementById("target")
+		var n = selected.value;
+		removeNumber(n);
+		pingoNumber.text(toBingoString(n));
+		addHistory(n);
+		wasshoiAudio2.currentTime = 0;
+		wasshoiAudio2.play();
+		var numberList = getNumberList();
+		setSelectValue(numberList);
+	};
+	manualButton.click(manual);
+
+	var setSelectValue = function(numberList) {
+		var select = document.getElementById('target');
+
+			while (0 < select.childNodes.length) {
+				select.removeChild(select.childNodes[0]);
+			}
+
+			for(var i=0;i<numberList.length;i++){
+			    var op = document.createElement("option");
+			    op.value = numberList[i];
+			    op.text = numberList[i];
+			    document.getElementById("target").appendChild(op);
+			  }
+		};
+
 })()
